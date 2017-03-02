@@ -1,0 +1,53 @@
+<?php
+$dsn = "mysql:dbname=megaki;host=localhost";
+$dbuser = "system";
+$dbpass = "system";
+try {
+    $pdo = new PDO($dsn, $dbuser, $dbpass);
+    if (isset($_POST['id_prog']) && !empty($_POST['id_system_op'])) {
+        $id_prog = $_POST['id_prog'];
+        $id_system_op = $_POST['id_system_op'];
+        $mgk_version = $_POST['mgk_version'];  
+
+
+        $sql = "INSERT INTO mgk_softwares SET
+                  id_prog ='$id_prog',
+                  id_system_op = '$id_system_op',
+                 mgk_version = '$mgk_version'"; 
+
+
+        $sql = $pdo->query($sql);
+        echo "Dados Inseridos com sucesso";
+    }
+} catch (PDOException $e) {
+    echo "falhou conexao" . $e->getMessage();
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>admin painel administrativo</title>
+        <link rel="stylesheet" href="obj_inc_app/css/reset.css"/>
+        <link rel="stylesheet" href="obj_inc_app/css/geral.css"/>
+    </head>
+    <body>
+        <div class="container"><div class="content">
+                <form method="POST" class="admin">
+
+                    <h4> Id do Programa: </h4>
+                    <input type="number" class="radius" name="id_prog"/><br/><br/>
+
+                    <h4>  Id do sistema operacional: </h4>
+                    <input type="number" class="radius" name="id_system_op"/><br/><br/>
+
+                    <h4>numero da versão :</h4>
+                    <input type="number" value="" class="radius" name="mgk_version"/><br/><br/>
+
+
+                    <input type="submit" value="enviar dados" class="btn btn-green">
+                </form>
+            </div> </div>
+    </body>
+</html>
